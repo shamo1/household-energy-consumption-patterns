@@ -10,11 +10,11 @@ setup(
     name="household-energy-analysis",
     version="1.0.0",
     author="Hashaam Khurshid",
-    author_email="your.email@example.com",
+    author_email="",
     description="Comprehensive analysis of household energy consumption patterns using machine learning and time series forecasting",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/household-energy-analysis",
+    url="",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",

@@ -32,8 +32,8 @@ Thank you for your interest in contributing to this project! This document provi
 ### Environment Setup
 
 ```bash
-# Clone your fork
-git clone https://github.com/yourusername/household-energy-analysis.git
+# Clone your fork (replace with your fork URL)
+git clone <your-fork-url>
 cd household-energy-analysis
 
 # Create development environment

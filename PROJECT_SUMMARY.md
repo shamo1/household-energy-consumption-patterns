@@ -209,18 +209,13 @@ _Professional Data Science Portfolio Project_
 **Hashaam Khurshid**  
 _Data Scientist & Machine Learning Engineer_
 
-- 📧 **Email**: hashaam.khurshid@example.com
-- 💼 **LinkedIn**: [linkedin.com/in/hashaamkhurshid](https://linkedin.com/in/hashaamkhurshid)
-- 🐙 **GitHub**: [@hashaamkhurshid](https://github.com/hashaamkhurshid)
-- 📱 **Portfolio**: [Your Portfolio Website]
-
 ---
 
 ## 🚀 **Quick Start for Evaluation**
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/household-energy-analysis.git
+# Clone the repository (replace with your repository URL)
+git clone <your-repository-url>
 cd household-energy-analysis
 
 # One-command setup

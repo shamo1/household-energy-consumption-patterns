@@ -2,7 +2,7 @@
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/yourusername/household-energy-analysis/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](#)
 
 A comprehensive machine learning project analyzing household energy consumption patterns using time series forecasting, deep learning, and statistical modeling techniques. This project demonstrates advanced data science skills for energy efficiency optimization and smart home applications.
 
@@ -581,8 +581,8 @@ MAE: 0.0845
 #### Option 1: One-Command Setup (Recommended)
 
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/household-energy-analysis.git
+# Clone repository (replace with your repository URL)
+git clone <your-repository-url>
 cd household-energy-analysis
 
 # Run installation script
@@ -774,12 +774,6 @@ This project demonstrates expertise in:
 - **Python Development**: Clean code, documentation, testing
 - **Domain Knowledge**: Energy systems, IoT, sustainability
 - **Project Management**: Git workflow, reproducible research
-
-### 🔗 **Connect with Me**
-
-- **LinkedIn**: [Hashaam Khurshid](https://linkedin.com/in/hashaamkhurshid)
-- **GitHub**: [@hashaamkhurshid](https://github.com/hashaamkhurshid)
-- **Email**: hashaam.khurshid@example.com
 
 ## 📄 License
 
