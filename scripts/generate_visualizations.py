@@ -299,29 +299,68 @@ class NotebookVisualizationGenerator:
         print("\n📊 Generating EDA visualizations (using cleaned data)...")
         
         try:
-            # 1. Weekdays vs Weekends Analysis (exactly as in notebook)
+            # 1. Weekdays vs Weekends Analysis (FIXED - showing AVERAGE daily consumption)
             print("📊 Creating weekdays vs weekends comparison...")
             weekdays = self.df_clean[self.df_clean['day_of_week'] <= 4]
             weekends = self.df_clean[self.df_clean['day_of_week'] >= 5]
             
-            total_consumption_weekdays_per_appliance = weekdays[self.appliances].sum()
-            total_consumption_weekends_per_appliance = weekends[self.appliances].sum()
+            # Calculate AVERAGE daily consumption (not total sum)
+            # Use the timestamp column to count unique days
+            weekday_days = pd.to_datetime(weekdays['utc_timestamp']).dt.normalize().nunique()
+            weekend_days = pd.to_datetime(weekends['utc_timestamp']).dt.normalize().nunique()
+            
+            # Calculate average daily consumption per appliance
+            avg_consumption_weekdays = weekdays[self.appliances].sum() / weekday_days if weekday_days > 0 else 0
+            avg_consumption_weekends = weekends[self.appliances].sum() / weekend_days if weekend_days > 0 else 0
             
             plt.figure(figsize=(14, 8))
             width = 0.35
             indices = np.arange(len(self.appliances))
             
-            plt.bar(indices - width/2, total_consumption_weekdays_per_appliance, width, label='Weekdays', color='skyblue')
-            plt.bar(indices + width/2, total_consumption_weekends_per_appliance, width, label='Weekends', color='coral')
+            plt.bar(indices - width/2, avg_consumption_weekdays, width, label='Weekdays', color='skyblue')
+            plt.bar(indices + width/2, avg_consumption_weekends, width, label='Weekends', color='coral')
             
             plt.xlabel('Appliances')
-            plt.ylabel('Total Energy Consumption (kWh)')
-            plt.title('Total Energy Consumption per Appliance: Weekdays vs Weekends')
+            plt.ylabel('Average Daily Energy Consumption (kWh/day)')
+            plt.title('Average Daily Energy Consumption per Appliance: Weekdays vs Weekends')
             plt.xticks(indices, [appliance.split('_')[-1] for appliance in self.appliances], rotation=45)
             plt.legend()
             plt.grid(True)
             plt.tight_layout()
             plt.savefig(self.output_dir / "eda" / "weekdays_vs_weekends.png", 
+                       dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            # 1b. Additional Analysis: Hourly Patterns - Weekdays vs Weekends
+            print("📊 Creating weekday vs weekend hourly patterns...")
+            plt.figure(figsize=(15, 10))
+            
+            # Calculate average consumption by hour for weekdays and weekends
+            weekday_hourly = weekdays.groupby('hour_of_day')['total_energy_consumption'].mean()
+            weekend_hourly = weekends.groupby('hour_of_day')['total_energy_consumption'].mean()
+            
+            plt.subplot(2, 1, 1)
+            plt.plot(weekday_hourly.index, weekday_hourly.values, 'b-', linewidth=2, label='Weekdays', marker='o')
+            plt.plot(weekend_hourly.index, weekend_hourly.values, 'r-', linewidth=2, label='Weekends', marker='s')
+            plt.title('Average Hourly Energy Consumption: Weekdays vs Weekends', fontsize=14)
+            plt.xlabel('Hour of Day')
+            plt.ylabel('Average Consumption (kWh)')
+            plt.legend()
+            plt.grid(True, alpha=0.3)
+            
+            # Show the difference
+            plt.subplot(2, 1, 2)
+            consumption_diff = weekend_hourly - weekday_hourly
+            colors = ['red' if x > 0 else 'blue' for x in consumption_diff]
+            plt.bar(consumption_diff.index, consumption_diff.values, color=colors, alpha=0.7)
+            plt.title('Weekend - Weekday Consumption Difference by Hour', fontsize=14)
+            plt.xlabel('Hour of Day')
+            plt.ylabel('Difference (kWh)')
+            plt.grid(True, alpha=0.3)
+            plt.axhline(y=0, color='black', linestyle='-', alpha=0.8)
+            
+            plt.tight_layout()
+            plt.savefig(self.output_dir / "eda" / "weekday_weekend_hourly_patterns.png", 
                        dpi=300, bbox_inches='tight')
             plt.close()
             
